@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="init()">
+
+<div class="sidebar">
+  <a href="dashboard.html">Dashboard</a>
+</div>
+
+<div class="main">
+<h2>Manage Users</h2>
+
+<input id="u" placeholder="username">
+<input id="p" placeholder="password">
+<input id="n" placeholder="name">
+<select id="r">
+  <option value="user">User</option>
+  <option value="admin">Admin</option>
+</select>
+<button onclick="save()">Save</button>
+
+<div id="list"></div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+function init(){
+  const cu = requireLogin();
+  const users = JSON.parse(localStorage.getItem("users"));
+  if (users[cu].role !== "admin") location.href="dashboard.html";
+  load();
+}
+
+function load(){
+  const users = JSON.parse(localStorage.getItem("users"));
+  list.innerHTML = Object.keys(users)
+    .map(u=>`${u} (${users[u].role})`).join("<br>");
+}
+
+function save(){
+  const users = JSON.parse(localStorage.getItem("users"));
+  users[u.value] = {password:p.value, name:n.value, role:r.value};
+  localStorage.setItem("users", JSON.stringify(users));
+  load();
+}
+</script>
+</body>
+</html>
