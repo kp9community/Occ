@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="init()">
+
+<div class="sidebar">
+  <h2>Purple HR</h2>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="admin.html">Admin</a>
+  <a href="#" onclick="logout()">Logout</a>
+</div>
+
+<div class="main">
+  <h2 id="welcome"></h2>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+function init(){
+  const u = requireLogin();
+  const users = JSON.parse(localStorage.getItem("users"));
+  welcome.innerText = "Welcome " + users[u].name;
+}
+</script>
+</body>
+</html>
